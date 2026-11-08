@@ -1,0 +1,110 @@
+# ==============================================================================
+# tfplan/v2 Mock Data - GDPR Compliant Infrastructure
+# ==============================================================================
+resource_changes = {
+	"aws_s3_bucket.secure_bucket": {
+		"type":    "aws_s3_bucket",
+		"mode":    "managed",
+		"address": "aws_s3_bucket.secure_bucket",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"bucket": "gdpr-compliant-bucket",
+			},
+		},
+	},
+	"aws_s3_bucket_server_side_encryption_configuration.secure_s3_enc": {
+		"type": "aws_s3_bucket_server_side_encryption_configuration",
+		"mode": "managed",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"bucket": "gdpr-compliant-bucket",
+			},
+		},
+	},
+	"aws_s3_bucket_public_access_block.secure_s3_pub": {
+		"type": "aws_s3_bucket_public_access_block",
+		"mode": "managed",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"block_public_acls":       true,
+				"block_public_policy":     true,
+				"ignore_public_acls":      true,
+				"restrict_public_buckets": true,
+			},
+		},
+	},
+	"aws_s3_bucket_lifecycle_configuration.secure_s3_lc": {
+		"type": "aws_s3_bucket_lifecycle_configuration",
+		"mode": "managed",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"bucket": "gdpr-compliant-bucket",
+			},
+		},
+	},
+	"aws_db_instance.secure_rds": {
+		"type": "aws_db_instance",
+		"mode": "managed",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"publicly_accessible": false,
+				"storage_encrypted":   true,
+				"kms_key_id":          "arn:aws:kms:eu-west-1:123456789012:key/1234abcd",
+			},
+		},
+	},
+	"aws_cloudtrail.secure_trail": {
+		"type": "aws_cloudtrail",
+		"mode": "managed",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"enable_log_file_validation": true,
+				"is_multi_region_trail":       true,
+				"kms_key_id":                 "arn:aws:kms:eu-west-1:123456789012:key/5678efgh",
+			},
+		},
+	},
+	"aws_backup_vault.secure_vault": {
+		"type": "aws_backup_vault",
+		"mode": "managed",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"kms_key_arn": "arn:aws:kms:eu-west-1:123456789012:key/9012ijkl",
+			},
+		},
+	},
+	"aws_lb_listener.secure_listener": {
+		"type": "aws_lb_listener",
+		"mode": "managed",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"protocol":   "HTTPS",
+				"ssl_policy": "ELBSecurityPolicy-TLS13-1-2-2021-06",
+			},
+		},
+	},
+}

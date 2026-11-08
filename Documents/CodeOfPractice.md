@@ -1,13 +1,14 @@
 # Code of Operations and Best Practice
 ## Introduction
 This documentation outlines the code of practice and operating policys for this oraganisation.
-This document constitutes the parameters in which developers are allowed operate within this organisation. The boundaries of this are defined and set by IT, securiy and the DevOps departments. The following are rules and boundaries defined by these parties: 
+This document constitutes the parameters in which developers are allowed operate within this organisation. The boundaries of this are defined and set by IT, securiy and the DevOps departments in accordance with existing European union GDPR  guidelines and regulations. The following are rules and boundaries defined by these parties: 
 
 ## Compliance; Digital sovereignty
 
 The following parameters are set for geographic resitrictions on resoureces deployed by the organisation:
 * All data of a sensitive nature MUST been stored in a location within the boarders of the nation in which it is sourced. 
 * All data must be kept in accordance to the Laws and guidelines of the nation in which it resides. In the instance of EU laws; rules regarding GDPR shall be followed and updated accordingly. 
+* All Data stored MUST fall within GDPR regulations. 
 
 ```
 Restrict infrastructure deployments to approved geographical regions.
