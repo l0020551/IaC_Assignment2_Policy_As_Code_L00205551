@@ -1,0 +1,86 @@
+# ==============================================================================
+# tfplan/v2 Mock Data - Non-GDPR-Compliant Infrastructure
+# ==============================================================================
+resource_changes = {
+	"aws_s3_bucket.leaky_bucket": {
+		"type":    "aws_s3_bucket",
+		"mode":    "managed",
+		"address": "aws_s3_bucket.leaky_bucket",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"bucket": "gdpr-noncompliant-bucket",
+			},
+		},
+	},
+	"aws_s3_bucket_public_access_block.leaky_s3_pub": {
+		"type": "aws_s3_bucket_public_access_block",
+		"mode": "managed",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"block_public_acls":       false,
+				"block_public_policy":     false,
+				"ignore_public_acls":      false,
+				"restrict_public_buckets": false,
+			},
+		},
+	},
+	"aws_db_instance.leaky_rds": {
+		"type": "aws_db_instance",
+		"mode": "managed",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"publicly_accessible": true,
+				"storage_encrypted":   false,
+				"kms_key_id":          null,
+			},
+		},
+	},
+	"aws_cloudtrail.leaky_trail": {
+		"type": "aws_cloudtrail",
+		"mode": "managed",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"enable_log_file_validation": false,
+				"is_multi_region_trail":       false,
+				"kms_key_id":                 null,
+			},
+		},
+	},
+	"aws_backup_vault.leaky_vault": {
+		"type": "aws_backup_vault",
+		"mode": "managed",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"kms_key_arn": null,
+			},
+		},
+	},
+	"aws_lb_listener.leaky_listener": {
+		"type": "aws_lb_listener",
+		"mode": "managed",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"protocol":   "HTTPS",
+				"ssl_policy": "ELBSecurityPolicy-TLS-1-0-2015-04",
+			},
+		},
+	},
+}

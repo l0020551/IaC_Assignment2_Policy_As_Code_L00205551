@@ -1,0 +1,150 @@
+import "tfplan/v2" as tfplan
+
+# ==============================================================================
+# DATA FILTERS (S3, RDS, CLOUDTRAIL, BACKUP, & NETWORKING)
+# ==============================================================================
+
+s3_buckets = filter tfplan.resource_changes as _, rc {
+    rc.type is "aws_s3_bucket" and
+    (rc.mode is "managed" and (rc.change.actions contains "create" or rc.change.actions contains "update"))
+}
+
+s3_encryption_configs = filter tfplan.resource_changes as _, rc {
+    rc.type is "aws_s3_bucket_server_side_encryption_configuration" and
+    (rc.change.actions contains "create" or rc.change.actions contains "update")
+}
+
+s3_public_access_blocks = filter tfplan.resource_changes as _, rc {
+    rc.type is "aws_s3_bucket_public_access_block" and
+    (rc.change.actions contains "create" or rc.change.actions contains "update")
+}
+
+# NEW: Filter for S3 bucket lifecycles (Art. 5 Storage Limitation)
+s3_lifecycles = filter tfplan.resource_changes as _, rc {
+    rc.type is "aws_s3_bucket_lifecycle_configuration" and
+    (rc.change.actions contains "create" or rc.change.actions contains "update")
+}
+
+rds_instances = filter tfplan.resource_changes as _, rc {
+    rc.type is "aws_db_instance" and
+    (rc.mode is "managed" and (rc.change.actions contains "create" or rc.change.actions contains "update"))
+}
+
+cloudtrails = filter tfplan.resource_changes as _, rc {
+    rc.type is "aws_cloudtrail" and
+    (rc.mode is "managed" and (rc.change.actions contains "create" or rc.change.actions contains "update"))
+}
+
+# NEW: Filter for AWS Backup Vaults (Art. 32 Availability & Resilience)
+backup_vaults = filter tfplan.resource_changes as _, rc {
+    rc.type is "aws_backup_vault" and
+    (rc.mode is "managed" and (rc.change.actions contains "create" or rc.change.actions contains "update"))
+}
+
+# NEW: Filter for Load Balancers to enforce TLS standards (Art. 32 In-Transit Integrity)
+lb_listeners = filter tfplan.resource_changes as _, rc {
+    rc.type is "aws_lb_listener" and
+    (rc.mode is "managed" and (rc.change.actions contains "create" or rc.change.actions contains "update"))
+}
+
+# ==============================================================================
+# VALIDATION RULES
+# ==============================================================================
+
+# 1. Base S3 Encryption & Privacy
+bucket_encryption_is_valid = rule {
+    all s3_buckets as _, bucket {
+        any s3_encryption_configs as _, config {
+            config.change.after.bucket == bucket.change.after.bucket or 
+            config.change.after.bucket == bucket.address
+        }
+    }
+}
+
+public_access_is_blocked = rule {
+    all s3_public_access_blocks as _, block {
+        block.change.after.block_public_acls is true and
+        block.change.after.block_public_policy is true and
+        block.change.after.ignore_public_acls is true and
+        block.change.after.restrict_public_buckets is true
+    }
+}
+
+# 2. NEW: S3 Storage Limitation (Art. 5(1)(e))
+# Validates that buckets have defined lifecycle rules so data isn't kept indefinitely.
+s3_has_lifecycle_policy = rule {
+    all s3_buckets as _, bucket {
+        any s3_lifecycles as _, lifecycle {
+            lifecycle.change.after.bucket == bucket.change.after.bucket or
+            lifecycle.change.after.bucket == bucket.address
+        }
+    }
+}
+
+# 3. Base RDS Rules
+rds_network_isolated = rule {
+    all rds_instances as _, rds {
+        rds.change.after.publicly_accessible is false
+    }
+}
+
+rds_storage_encrypted = rule {
+    all rds_instances as _, rds {
+        rds.change.after.storage_encrypted is true and
+        rds.change.after.kms_key_id is not null
+    }
+}
+
+# 4. Base CloudTrail Rules
+audit_integrity_valid = rule {
+    all cloudtrails as _, trail {
+        trail.change.after.enable_log_file_validation is true and
+        trail.change.after.is_multi_region_trail is true and
+        trail.change.after.kms_key_id is not null
+    }
+}
+
+# 5. NEW: Backup Encryption & Protection (Art. 32)
+# Ensures backup snapshots are encrypted with customer-managed keys.
+backups_are_encrypted = rule {
+    all backup_vaults as _, vault {
+        vault.change.after.kms_key_arn is not null
+    }
+}
+
+# 6. NEW: Strict Transport Layer Encryption (Art. 32)
+# Rejects outdated SSL/TLS versions; mandates modern TLS 1.2 or TLS 1.3 policies.
+enforce_modern_tls = rule {
+    all lb_listeners as _, listener {
+        (listener.change.after.protocol not in ["HTTPS", "TLS"]) or
+        (listener.change.after.ssl_policy matches "ELBSecurityPolicy-TLS13-.*" or 
+         listener.change.after.ssl_policy matches "ELBSecurityPolicy-TLS-1-2-.*")
+    }
+}
+
+# ==============================================================================
+# MAIN EXECUTION CONTROL
+# ==============================================================================
+# Helper function to validate the execution array without short-circuiting
+all_true = func(rule_list) {
+    result = true
+    for rule_list as r {
+        if not r {
+            result = false
+        }
+    }
+    return result
+}
+
+main = rule {
+    all_true([
+        bucket_encryption_is_valid,
+        public_access_is_blocked,
+        s3_has_lifecycle_policy,
+        rds_network_isolated,
+        rds_storage_encrypted,
+        audit_integrity_valid,
+        backups_are_encrypted,
+        enforce_modern_tls,
+    ])
+}

@@ -1,0 +1,41 @@
+#  Test passing cases
+providers = {
+	"aws": {
+		"name": "aws",
+		"config": {
+			"region": {
+				"constant_value": "eu-west-1",
+			},
+		},
+	},
+}
+
+# ==============================================================================
+# tfplan/v2 Mock Data
+# ==============================================================================
+resource_changes = {
+	"aws_instance.web": {
+		"type": "aws_instance",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"availability_zone": "eu-west-1a",
+				"instance_type":     "t3.micro",
+			},
+		},
+	},
+	"aws_s3_bucket.assets": {
+		"type": "aws_s3_bucket",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"bucket": "my-corporate-assets",
+				"region": "eu-west-1",
+			},
+		},
+	},
+}

@@ -1,0 +1,140 @@
+## region locked to ireland
+# used this as reference https://oneuptime.com/blog/post/2026-02-23-how-to-write-sentinel-policies-for-region-restrictions/view
+
+import "tfconfig/v2" as tfconfig
+import "tfplan/v2" as tfplan
+
+
+# Define strict sovereign boundaries
+allowed_regions = ["eu-west-1"]  ## Ireland Only
+
+/*
+# Other EU locations that may be considered for future service redundancies:
+eu-central-1	Europe (Frankfurt)
+eu-south-1	Europe (Milan)
+eu-west-3	Europe (Paris)
+eu-south-2	Europe (Spain)
+eu-north-1	Europe (Stockholm)
+*/
+
+
+
+
+# ---------------------------------------------------------
+# Resource Mappings for Plan Validation
+# ---------------------------------------------------------
+# Resources with region hidden inside an availability_zone string
+az_resources = {
+    "aws_instance":    "availability_zone",
+    "aws_ebs_volume":  "availability_zone",
+    "aws_subnet":      "availability_zone",
+    "aws_db_instance": "availability_zone",
+}
+
+# Resources with an explicit region attribute
+region_resources = {
+    "aws_s3_bucket": "region",
+}
+
+# ---------------------------------------------------------
+# Helper Functions
+# ---------------------------------------------------------
+get_attr = func(values, attr) {
+    if values is null or attr not in values {
+        return null
+    }
+    return values[attr]
+}
+
+# Extracts region from an Availability Zone string (e.g., "us-east-1a" -> "us-east-1")
+get_region_from_az = func(az) {
+    if az is null or az is "" {
+        return null
+    }
+    return az[0:length(az)-1]
+}
+
+# ---------------------------------------------------------
+# Validation Logic
+# ---------------------------------------------------------
+
+# 1. Check Static Provider Configs
+check_providers = func() {
+    validated = true
+    for tfconfig.providers as _, provider {
+        if provider.name is "aws" and "region" in provider.config {
+            region_config = provider.config.region
+            if "constant_value" in region_config {
+                region = region_config.constant_value
+                if region not in allowed_regions {
+                    print("[PROVIDER ERROR] AWS provider explicitly targets forbidden region:", region)
+                    validated = false
+                }
+            }
+            # Note: Variable-driven provider regions bypass this and are caught by the resource checks below
+        }
+    }
+    return validated
+}
+
+# 2. Check Resources Parsed from Availability Zones
+check_az_resources = func() {
+    validated = true
+    for az_resources as resource_type, attr {
+        resources = filter tfplan.resource_changes as _, rc {
+            rc.type is resource_type and
+            (rc.change.actions contains "create" or rc.change.actions contains "update")
+        }
+        for resources as address, rc {
+            az = get_attr(rc.change.after, attr)
+            region = get_region_from_az(az)
+            if region is not null and region not in allowed_regions {
+                print("[RESOURCE ERROR]", address, "is provisioned in unauthorized region:", region, "(via AZ:", az, ")")
+                validated = false
+            }
+        }
+    }
+    return validated
+}
+
+# 3. Check Resources with Explicit Region Attributes
+check_region_resources = func() {
+    validated = true
+    for region_resources as resource_type, attr {
+        resources = filter tfplan.resource_changes as _, rc {
+            rc.type is resource_type and
+            (rc.change.actions contains "create" or rc.change.actions contains "update")
+        }
+        for resources as address, rc {
+            region = get_attr(rc.change.after, attr)
+            if region is not null and region not in allowed_regions {
+                print("[RESOURCE ERROR]", address, "targets unauthorized region:", region)
+                validated = false
+            }
+        }
+    }
+    return validated
+}
+
+# ---------------------------------------------------------
+# Main Policy Rules Evaluation
+# ---------------------------------------------------------
+provider_allowed = rule { check_providers() }
+az_allowed       = rule { check_az_resources() }
+region_allowed   = rule { check_region_resources() }
+
+# Helper function to validate the execution array without short-circuiting
+all_true = func(rule_list) {
+    result = true
+    for rule_list as r {
+        if not r {
+            result = false
+        }
+    }
+    return result
+}
+
+# Invoke the helper function directly inside the main rule block
+main = rule {
+    all_true([provider_allowed, az_allowed, region_allowed])
+}

@@ -1,0 +1,16 @@
+{
+	"records": [
+		{
+			"key": "region_of_operation",
+			"source": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/region_of_operation.sentinel",
+			"sourceSum": "836a511145752afa74c5aeb9852b2e3b4a2acbccbe4bb74b8d94c949ad25f3db",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/.sentinel/policies/region_of_operation-836a511145752afa74c5aeb9852b2e3b4a2acbccbe4bb74b8d94c949ad25f3db.sentinel"
+		},
+		{
+			"key": "data_protection",
+			"source": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/data_protection.sentinel",
+			"sourceSum": "3c38593044d1a8a84418704fe69e9e0c1103b503650e6e323a29e88df56c0294",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/.sentinel/policies/data_protection-3c38593044d1a8a84418704fe69e9e0c1103b503650e6e323a29e88df56c0294.sentinel"
+		}
+	]
+}
