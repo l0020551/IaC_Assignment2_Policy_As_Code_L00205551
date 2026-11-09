@@ -24,7 +24,7 @@ Refer to [Code of Operations and Best Practice](./Documents/CodeOfPractice.md) f
 * Extremely useful: GDPR blocks [https://compliance.tf/gdpr/](https://compliance.tf/gdpr/)
 
 
-## Implementation:
+### Implementation:
 1. This blog was used for referenece when developing geo-restrictions: [https://oneuptime.com/blog/post/2026-02-23-how-to-write-sentinel-policies-for-region-restrictions/view](https://oneuptime.com/blog/post/2026-02-23-how-to-write-sentinel-policies-for-region-restrictions/view)
 
 2.  I asked the Gemini LLM AI built into the chrome browser to refer to [https://compliance.tf/gdpr/](https://compliance.tf/gdpr/) and generate GDPR compliant data storage blocks for aws
@@ -63,14 +63,29 @@ On reviewing the content generated, I prompted the same AI if this was a compreh
    * To help form response to question(prompt1)[.Documents/Screenshots/gdpr_regarding_digitalSovereignty.png] 
    * To summarises individual's rights regarding data usage (prompt2)[./Documents/gdpr_individual_rights.png]
 
-### Digital Soverignty section questiions:
 
 
 
 ## IaC Supply chain security
+
+### Resources used
 * Article: [https://oneuptime.com/blog/post/2026-02-23-how-to-handle-terraform-provider-supply-chain-security/view](https://oneuptime.com/blog/post/2026-02-23-how-to-handle-terraform-provider-supply-chain-security/view)
-* https://www.hashicorp.com/en/blog/enforce-private-module-registry-usage-in-terraform-with-sentinel
-* 
+* Article: [https://www.hashicorp.com/en/blog/enforce-private-module-registry-usage-in-terraform-with-sentinel](https://www.hashicorp.com/en/blog/enforce-private-module-registry-usage-in-terraform-with-sentinel)
+
+## Implementation
+* Implemented private module enforement using the terraform article refereneced above.
+* Followed other article too  and implemented versioning of provider.
+* I couldn't find other articles to build upon so questioned Geimini in the browser again:
+  ```
+  using terraform Sentinel, how can I improve on supply change security? I have implemented these codeblocks sofar:
+  https://oneuptime.com/blog/post/2026-02-23-how-to-handle-terraform-provider-supply-chain-security/view
+
+  and 
+  https://www.hashicorp.com/en/blog/enforce-private-module-registry-usage-in-terraform-with-sentinel
+  ```
+[Geimini](./Documents/Screenshots/)
+
+* I tried to implement pivate org modules as shown in the first article. I didn't have a same to test so left the modules commented out. 
 
 ## Infrastucture Security
 
@@ -82,4 +97,11 @@ For this task the folloing tutorials and repos were analysed:
 * Tutorial: [https://developer.hashicorp.com/terraform/tutorials/policy/sentinel-import](https://developer.hashicorp.com/terraform/tutorials/policy/sentinel-import)
   * Repo: https://developer.hashicorp.com/terraform/tutorials/policy/sentinel-import
 * Tutorial: [https://developer.hashicorp.com/terraform/tutorials/policy/sentinel-testing](=https://developer.hashicorp.com/terraform/tutorials/policy/sentinel-testing)
-* 
+
+
+
+
+
+
+
+# Add tagging

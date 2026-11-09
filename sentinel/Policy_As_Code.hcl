@@ -1,17 +1,41 @@
-## Mocking Configuration
-mock "tfplan/v2" {
-  data = {
-    tfplan = "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/mock_tests/mock_tfplan-pass.sentinel"
+# Policy_As_Code.hcl
+
+# ---------------------------------------------------------
+## Mocking & Global Runtime Data
+# ---------------------------------------------------------
+mock "tfconfig/v2" {
+  module {
+    source = "test/SupplyChainSecurity/mocks/SecureSupplyChain.sentinel"
   }
 }
 
-## Digital Sovereignty Framework
-policy "region_of_operation" {
-    source = "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/region_of_operation.sentinel"
-    enforcement_level = "hard-mandatory"
+mock "tfplan/v2" {
+  module {
+    source = "test/region_of_operation/mocks/pass-secure-region.sentinel"
+  }
 }
 
+# ---------------------------------------------------------
+## Governance Policy Rules Definitions
+# ---------------------------------------------------------
+policy "region_of_operation" {
+  source            = "./region_of_operation.sentinel"
+  enforcement_level = "hard-mandatory"
+}
+
+policy "SupplyChainSecurity" {
+  source = "./SupplyChainSecurity.sentinel"
+  enforcement_level = "hard-mandatory"
+  
+  params = {
+    # organizations = ["your-corporate-org"]  # Commented out
+    address       = "app.terraform.io"
+    is_destroy    = false
+  }
+}
+
+
 policy "GDPR_data_protection" {
-    source            = "./policies/GDPR_data_protection.sentinel"
-    enforcement_level = "hard-mandatory"
+  source            = "./GDPR_data_protection.sentinel"
+  enforcement_level = "hard-mandatory"
 }

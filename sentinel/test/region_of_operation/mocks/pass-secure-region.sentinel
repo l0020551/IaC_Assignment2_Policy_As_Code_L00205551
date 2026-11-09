@@ -1,0 +1,35 @@
+# test/region_of_operation/mocks/pass-secure-region.sentinel
+
+providers = {
+    "aws": {
+        "name": "aws",
+        "config": {
+            "region": {
+                "constant_value": "eu-west-1",
+            },
+        },
+    },
+}
+
+resource_changes = {
+    "aws_instance.rogue_node": {
+        "address": "aws_instance.rogue_node",
+        "type": "aws_instance",
+        "change": {
+            "actions": ["create"],
+            "after": {
+                "availability_zone": "eu-west-1b",
+            },
+        },
+    },
+    "aws_s3_bucket.illegal_storage": {
+        "address": "aws_s3_bucket.illegal_storage",
+        "type": "aws_s3_bucket",
+        "change": {
+            "actions": ["create"],
+            "after": {
+                "region": "eu-west-1",
+            },
+        },
+    },
+}
