@@ -1,0 +1,32 @@
+# Mock data representing dynamic version ranges and untrusted sources
+
+providers = {
+    "aws": {
+        "name": "aws",
+        "full_name": "registry.terraform.io/hashicorp/aws",
+        "version_constraint": "~> 5.31.0", # Error: Dynamic versioning string
+        "config": {},
+    },
+    "malicious_utility": {
+        "name": "unapproved-plugin",
+        "full_name": "registry.terraform.io/attacker/unapproved-plugin", # Error: Non-whitelisted entity
+        "version_constraint": "1.0.0",
+        "config": {},
+    },
+}
+
+
+module_calls = {
+    "untrusted_public_module": {
+        "name": "untrusted_public_module",
+        "module_address": "", # Added to satisfy line 104
+        "source": "registry.terraform.io/untrusted-user/bad-module/aws",
+        "version_constraint": null,
+    },
+    "mutable_git_branch": {
+        "name": "mutable_git_branch",
+        "module_address": "", # Added to satisfy line 104
+        "source": "git::https://github.com",
+        "version_constraint": null,
+    },
+}

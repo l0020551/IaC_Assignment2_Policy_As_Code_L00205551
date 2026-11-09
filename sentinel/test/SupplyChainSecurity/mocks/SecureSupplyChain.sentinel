@@ -1,0 +1,31 @@
+# # test/SupplyChainSecurity/mocks/SecureSupplyChain.sentinel
+
+providers = {
+    "aws": {
+        "name": "aws",
+        "full_name": "registry.terraform.io/hashicorp/aws",
+        "version_constraint": "5.31.0",
+        "config": {},
+    },
+    "random": {
+        "name": "random",
+        "full_name": "registry.terraform.io/hashicorp/random",
+        "version_constraint": "3.6.0",
+        "config": {},
+    },
+}
+
+module_calls = {
+    "secure_vpc": {
+        "name": "secure_vpc",
+        "source": "git::https://github.com",
+        "version_constraint": null,
+    },
+    "internal_rds": {
+        "name": "internal_rds",
+        "source": "app.terraform.io/your-org/rds/aws",
+        "version_constraint": "1.0.0",
+    },
+}
+
+

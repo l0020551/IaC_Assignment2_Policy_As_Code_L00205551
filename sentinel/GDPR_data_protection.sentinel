@@ -53,8 +53,8 @@ lb_listeners = filter tfplan.resource_changes as _, rc {
 
 # 1. Base S3 Encryption & Privacy
 bucket_encryption_is_valid = rule {
-    all s3_buckets as _, bucket {
-        any s3_encryption_configs as _, config {
+    all s3_buckets else {} as _, bucket {
+        any s3_encryption_configs else {} as _, config {
             config.change.after.bucket == bucket.change.after.bucket or 
             config.change.after.bucket == bucket.address
         }
@@ -62,7 +62,7 @@ bucket_encryption_is_valid = rule {
 }
 
 public_access_is_blocked = rule {
-    all s3_public_access_blocks as _, block {
+    all s3_public_access_blocks else {} as _, block {
         block.change.after.block_public_acls is true and
         block.change.after.block_public_policy is true and
         block.change.after.ignore_public_acls is true and
@@ -73,12 +73,17 @@ public_access_is_blocked = rule {
 # 2. NEW: S3 Storage Limitation (Art. 5(1)(e))
 # Validates that buckets have defined lifecycle rules so data isn't kept indefinitely.
 s3_has_lifecycle_policy = rule {
-    all s3_buckets as _, bucket {
-        any s3_lifecycles as _, lifecycle {
+    all s3_buckets else {} as _, bucket {
+        any s3_lifecycle_rules else {} as _, lifecycle {
             lifecycle.change.after.bucket == bucket.change.after.bucket or
             lifecycle.change.after.bucket == bucket.address
         }
     }
+}
+
+s3_lifecycle_rules = filter tfplan.resource_changes else {} as _, rc {
+    rc.type is "aws_s3_bucket_lifecycle_configuration" and
+    (rc.change.actions contains "create" or rc.change.actions contains "update")
 }
 
 # 3. Base RDS Rules
