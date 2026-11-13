@@ -1,0 +1,11 @@
+resource_changes = {
+    "aws_instance.unapproved_node": {
+        "type": "aws_instance",
+        "change": {
+            "actions": ["create"],
+            "after": {
+                "instance_type": "m5.large",
+            },
+        },
+    },
+}

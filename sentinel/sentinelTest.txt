@@ -1,0 +1,1454 @@
+ERROR - ElasticCloudComputeSecurity.sentinel
+  ElasticCloudComputeSecurity.sentinel:154:50: expected 'IDENT', found 'rule' (and 2 more errors)
+PASS - SupplyChainSecurity.sentinel
+  PASS - test/SupplyChainSecurity/fail.hcl
+  PASS - test/SupplyChainSecurity/pass.hcl
+PASS - region_of_operation.sentinel
+  PASS - test/region_of_operation/fail.hcl
+  PASS - test/region_of_operation/pass.hcl
+PASS - GDPR_data_protection.sentinel
+  PASS - test/GDPR_data_protection/fail.hcl
+  PASS - test/GDPR_data_protection/pass.hcl
+4 tests completed in 17.821471ms
+PASS - SupplyChainSecurity.sentinel
+  PASS - test/SupplyChainSecurity/fail.hcl
+  PASS - test/SupplyChainSecurity/pass.hcl
+PASS - region_of_operation.sentinel
+  PASS - test/region_of_operation/fail.hcl
+  PASS - test/region_of_operation/pass.hcl
+PASS - GDPR_data_protection.sentinel
+  PASS - test/GDPR_data_protection/fail.hcl
+  PASS - test/GDPR_data_protection/pass.hcl
+FAIL - ElasticCloudComputeSecurity.sentinel
+  FAIL - test/ElasticCloudComputeSecurity/failure-default-security-group-with-egress.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-default-security-group-with-ingress.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-default-vpc-resources-flow-logging-enabled-but-different-traffic-type.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-default-vpc-resources-flow-logging-not-enabled.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-encrypted-attribute-not-present.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-encrypted-attribute-present-but-set-to-false.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-flow-logging-is-referenced.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-network-acl-port.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-network-acl-protocol.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-network-acl-rule-port.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-network-acl-rule-protocol.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-network-acl-rule-source-ipv4.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-network-acl-rule-source-ipv6.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-network-acl-source-ipv4.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-network-acl-source-ipv6.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-no-input-params.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  PASS - test/ElasticCloudComputeSecurity/failure-security-group-egress-rule-references-default-security-group.hcl
+  PASS - test/ElasticCloudComputeSecurity/failure-security-group-egress-rule-references-default-vpc-default-sg.hcl
+  PASS - test/ElasticCloudComputeSecurity/failure-security-group-egress-rule-references-vpc-default-sg.hcl
+  PASS - test/ElasticCloudComputeSecurity/failure-security-group-ingress-rule-references-default-security-group.hcl
+  PASS - test/ElasticCloudComputeSecurity/failure-security-group-ingress-rule-references-default-vpc-default-sg.hcl
+  PASS - test/ElasticCloudComputeSecurity/failure-security-group-ingress-rule-references-vpc-default-sg.hcl
+  PASS - test/ElasticCloudComputeSecurity/failure-security-group-rule-references-default-security-group.hcl
+  PASS - test/ElasticCloudComputeSecurity/failure-security-group-rule-references-default-vpc-default-sg.hcl
+  FAIL - test/ElasticCloudComputeSecurity/failure-sg-ingress-port-22.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-sg-ingress-port-3389.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-sg-ingress-protocol.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-sg-ingress-source-ipv4.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-sg-ingress-source-ipv6.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-sg-port-22.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-sg-port-3389.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-sg-protocol.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-sg-rule-port-22.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-sg-rule-port-3389.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-sg-rule-protocol.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-sg-rule-source-ipv4.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-sg-rule-source-ipv6.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-sg-source-ipv4.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-sg-source-ipv6.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/failure-vpc-resources-flow-logging-not-enabled.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/policy-failure-account-level-metadata.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/policy-failure-instance-level-metadata.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  FAIL - test/ElasticCloudComputeSecurity/policy-failure-no-metadata.hcl
+    expected "main" to be false, got: true
+
+    trace:
+      ElasticCloudComputeSecurity.sentinel:259:1 - Rule "main"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:256:1 - Rule "default_sg_empty"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:252:1 - Rule "ebs_encrypted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:251:1 - Rule "ec2_type_allowed"
+        Description:
+          ---------------------------------------------------------
+          Main Policy Evaluation (Non-Short-Circuiting)
+          ---------------------------------------------------------
+
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:257:1 - Rule "flow_logs_enabled"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:253:1 - Rule "imdsv2_enforced"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:254:1 - Rule "nacl_restricted"
+        Value:
+          true
+
+      ElasticCloudComputeSecurity.sentinel:255:1 - Rule "sg_restricted"
+        Value:
+          true
+  PASS - test/ElasticCloudComputeSecurity/policy-success-account-level-metadata.hcl
+  PASS - test/ElasticCloudComputeSecurity/policy-success-instance-level-metadata.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-all-vpc-resources-flow-logging-enabled-with-traffic-type-all.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-all-vpc-resources-flow-logging-enabled-with-traffic-type-reject.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-all-vpc-resources-in-nested-module.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-default-security-group-no-traffic.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-encrypted-set-to-true.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-network-acl-port.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-network-acl-rule-port.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-network-acl-rule-source-ipv4.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-network-acl-rule-source-ipv6.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-network-acl-source-ipv4.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-network-acl-source-ipv6.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-sg-default-params.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-sg-ingress-port-22.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-sg-ingress-port-3389.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-sg-ingress-source.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-sg-port-22.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-sg-port-3389.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-sg-rule-port-22.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-sg-rule-port-3389.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-sg-rule-source.hcl
+  PASS - test/ElasticCloudComputeSecurity/success-sg-source.hcl
+4 tests completed in 37.062937ms

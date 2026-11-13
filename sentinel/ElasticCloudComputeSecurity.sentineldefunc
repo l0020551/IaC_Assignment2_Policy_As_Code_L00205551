@@ -1,0 +1,325 @@
+# ElasticCloudComputeSecurity.sentinel
+# CIS AWS Foundations Benchmark 3.0
+# CIS EC2 controls + custom organizational restrictions
+# Enforcement: hard-mandatory
+
+import "tfplan/v2" as tfplan
+
+# ------------------------------------------------------------
+# CONFIGURATION
+# ------------------------------------------------------------
+
+allowed_ec2_types = ["t2.micro", "t2.small", "t2.medium", "t3.micro", "t3.small", "t3.medium"]
+restricted_ports = [22, 3389]
+
+# ------------------------------------------------------------
+# RESOURCE DISCOVERY
+# ------------------------------------------------------------
+
+get_resources = func(resource_type) {
+    changes = tfplan.resource_changes else {}
+    result = {}
+    for changes as address, rc {
+        if rc.type is resource_type {
+            actions = rc.change.actions else []
+            if actions contains "create" or actions contains "update" or actions contains "no-op" {
+                result[address] = rc
+            }
+        }
+    }
+    planned_resources = tfplan.planned_values.resources else {}
+    for planned_resources as address, res {
+        if (res.type else "") is resource_type and not (address in result) {
+            result[address] = {"type": res.type, "change": {"actions": ["no-op"], "after": res.values else {}}}
+        }
+    }
+    return result
+}
+
+# ------------------------------------------------------------
+# COMMON HELPERS
+# ------------------------------------------------------------
+
+port_is_restricted = func(from_port, to_port) {
+	restricted = false
+	for restricted_ports as port {
+		if from_port <= port and to_port >= port {
+			restricted = true
+		}
+	}
+	return restricted
+}
+
+is_all_protocols = func(protocol) {
+	return string(protocol) is "-1"
+}
+
+# ------------------------------------------------------------
+# CUSTOM: EC2 INSTANCE TYPE RESTRICTIONS
+# ------------------------------------------------------------
+
+check_ec2_instance_types = func() {
+	validated = true
+	for get_resources("aws_instance") as address, rc {
+		after = rc.change.after else {}
+		instance_type = after.instance_type else ""
+		if instance_type not in allowed_ec2_types {
+			print("[EC2 TYPE ERROR]", address, "uses unapproved instance type:", instance_type)
+			validated = false
+		}
+	}
+	return validated
+}
+
+# ------------------------------------------------------------
+# CIS EC2.7: EBS DEFAULT ENCRYPTION
+# ------------------------------------------------------------
+
+check_ebs_default_encryption = func() {
+    validated = true
+    for get_resources("aws_ebs_encryption_by_default") as address, rc {
+        after = rc.change.after else {}
+        if (after.enabled else false) is not true {
+            print("[CIS EC2.7 ERROR]", address, "must enable EBS default encryption.")
+            validated = false
+        }
+    }
+    return validated
+}
+
+# ------------------------------------------------------------
+# CUSTOM: INDIVIDUAL EBS VOLUME ENCRYPTION
+# ------------------------------------------------------------
+
+check_ebs_volumes_encrypted = func() {
+	validated = true
+	for get_resources("aws_ebs_volume") as address, rc {
+		after = rc.change.after else {}
+		if (after.encrypted else false) is not true {
+			print("[EBS ENCRYPTION ERROR]", address, "must have encryption enabled.")
+			validated = false
+		}
+	}
+	return validated
+}
+
+# ------------------------------------------------------------
+# CIS EC2.8: IMDSV2
+# ------------------------------------------------------------
+
+check_imdsv2 = func() {
+	validated = true
+	for get_resources("aws_instance") as address, rc {
+		after = rc.change.after else {}
+		metadata = after.metadata_options else []
+		if length(metadata) is 0 {
+			print("[CIS EC2.8 ERROR]", address, "must explicitly configure metadata_options.http_tokens = required.")
+			validated = false
+		} else {
+			for metadata as option {
+				if (option.http_tokens else "") is not "required" {
+					print("[CIS EC2.8 ERROR]", address, "must enforce IMDSv2 with http_tokens = required.")
+					validated = false
+				}
+			}
+		}
+	}
+	return validated
+}
+
+# ------------------------------------------------------------
+# CIS EC2.21: NETWORK ACL SSH/RDP RESTRICTIONS
+# ------------------------------------------------------------
+
+check_network_acls = func() {
+	validated = true
+	for get_resources("aws_network_acl_rule") as address, rc {
+		after = rc.change.after else {}
+		ingress = (after.egress else false) is false
+		allow_rule = (after.rule_action else "") is "allow"
+		public_ipv4 = (after.cidr_block else "") is "0.0.0.0/0"
+		public_ipv6 = (after.ipv6_cidr_block else "") is "::/0"
+		protocol = after.protocol else "-1"
+		from_port = after.from_port else 0
+		to_port = after.to_port else 65535
+		restricted = is_all_protocols(protocol) or (string(protocol) is "6" and port_is_restricted(from_port, to_port))
+		if ingress and allow_rule and (public_ipv4 or public_ipv6) and restricted {
+			print("[NACL SECURITY ERROR]", address, "allows public ingress to SSH/RDP ports or all protocols.")
+			validated = false
+		}
+	}
+	return validated
+}
+
+# ------------------------------------------------------------
+# CIS EC2.53 / EC2.54: LEGACY SECURITY GROUP RULES
+# ------------------------------------------------------------
+
+check_legacy_security_group_rules = func() {
+	validated = true
+	for get_resources("aws_security_group_rule") as address, rc {
+		after = rc.change.after else {}
+		rule_type = after.type else ""
+		if rule_type is "ingress" {
+			protocol = after.protocol else "-1"
+			from_port = after.from_port else 0
+			to_port = after.to_port else 65535
+			public_ipv4 = (after.cidr_blocks else []) contains "0.0.0.0/0"
+			public_ipv6 = (after.ipv6_cidr_blocks else []) contains "::/0"
+			restricted = is_all_protocols(protocol) or (string(protocol) is "6" and port_is_restricted(from_port, to_port)) or (string(protocol) is "17" and port_is_restricted(from_port, to_port))
+			if restricted and public_ipv4 {
+				print("[SECURITY GROUP ERROR]", address, "allows public IPv4 ingress to SSH/RDP ports or all protocols.")
+				validated = false
+			}
+			if restricted and public_ipv6 {
+				print("[SECURITY GROUP ERROR]", address, "allows public IPv6 ingress to SSH/RDP ports or all protocols.")
+				validated = false
+			}
+		}
+	}
+	return validated
+}
+
+# ------------------------------------------------------------
+# MODERN SECURITY GROUP INGRESS RULES
+# ------------------------------------------------------------
+
+check_modern_security_group_rules = func() {
+	validated = true
+	for get_resources("aws_vpc_security_group_ingress_rule") as address, rc {
+		after = rc.change.after else {}
+		protocol = after.ip_protocol else "-1"
+		from_port = after.from_port else 0
+		to_port = after.to_port else 65535
+		public_ipv4 = (after.cidr_ipv4 else "") is "0.0.0.0/0"
+		public_ipv6 = (after.cidr_ipv6 else "") is "::/0"
+		restricted = is_all_protocols(protocol) or (string(protocol) is "tcp" and port_is_restricted(from_port, to_port)) or (string(protocol) is "udp" and port_is_restricted(from_port, to_port)) or (string(protocol) is "6" and port_is_restricted(from_port, to_port)) or (string(protocol) is "17" and port_is_restricted(from_port, to_port))
+		if restricted and public_ipv4 {
+			print("[CIS EC2.53 ERROR]", address, "allows public IPv4 ingress to SSH/RDP ports or all protocols.")
+			validated = false
+		}
+		if restricted and public_ipv6 {
+			print("[CIS EC2.54 ERROR]", address, "allows public IPv6 ingress to SSH/RDP ports or all protocols.")
+			validated = false
+		}
+	}
+	return validated
+}
+
+# ------------------------------------------------------------
+# INLINE SECURITY GROUP INGRESS RULES
+# ------------------------------------------------------------
+
+check_inline_security_group_rules = func() {
+	validated = true
+	for get_resources("aws_security_group") as address, rc {
+		after = rc.change.after else {}
+		ingress_rules = after.ingress else []
+		for ingress_rules as ingress {
+			protocol = ingress.protocol else "-1"
+			from_port = ingress.from_port else 0
+			to_port = ingress.to_port else 65535
+			public_ipv4 = (ingress.cidr_blocks else []) contains "0.0.0.0/0"
+			public_ipv6 = (ingress.ipv6_cidr_blocks else []) contains "::/0"
+			restricted = is_all_protocols(protocol) or (string(protocol) is "6" and port_is_restricted(from_port, to_port)) or (string(protocol) is "17" and port_is_restricted(from_port, to_port))
+			if restricted and public_ipv4 {
+				print("[SECURITY GROUP ERROR]", address, "has inline public IPv4 SSH/RDP ingress.")
+				validated = false
+			}
+			if restricted and public_ipv6 {
+				print("[SECURITY GROUP ERROR]", address, "has inline public IPv6 SSH/RDP ingress.")
+				validated = false
+			}
+		}
+	}
+	return validated
+}
+
+# ------------------------------------------------------------
+# CIS EC2.2: DEFAULT SECURITY GROUP
+# ------------------------------------------------------------
+
+check_default_security_groups = func() {
+	validated = true
+	for get_resources("aws_default_security_group") as address, rc {
+		after = rc.change.after else {}
+		ingress = after.ingress else []
+		egress = after.egress else []
+		if length(ingress) > 0 {
+			print("[CIS EC2.2 ERROR]", address, "must not allow inbound traffic.")
+			validated = false
+		}
+		if length(egress) > 0 {
+			print("[CIS EC2.2 ERROR]", address, "must not allow outbound traffic.")
+			validated = false
+		}
+	}
+	return validated
+}
+
+# ------------------------------------------------------------
+# CIS EC2.6: VPC FLOW LOGS
+# ------------------------------------------------------------
+
+check_vpc_flow_logs = func() {
+	validated = true
+	vpcs = get_resources("aws_vpc")
+	default_vpcs = get_resources("aws_default_vpc")
+	flow_logs = get_resources("aws_flow_log")
+	all_vpcs = {}
+	for vpcs as address, rc {
+		all_vpcs[address] = rc
+	}
+	for default_vpcs as address, rc {
+		all_vpcs[address] = rc
+	}
+	for all_vpcs as address, vpc {
+		vpc_id = vpc.change.after.id else ""
+		found_flow_log = false
+		if vpc_id is not "" {
+			for flow_logs as flow_address, flow {
+				flow_vpc_id = flow.change.after.vpc_id else ""
+				if flow_vpc_id is vpc_id {
+					found_flow_log = true
+				}
+			}
+		}
+		if not found_flow_log {
+			print("[CIS EC2.6 ERROR]", address, "does not have a verifiable associated aws_flow_log resource.")
+			validated = false
+		}
+	}
+	return validated
+}
+
+# ------------------------------------------------------------
+# POLICY RULES
+# ------------------------------------------------------------
+
+ec2_type_allowed = rule { check_ec2_instance_types() }
+ebs_default_encryption = rule { check_ebs_default_encryption() }
+ebs_volumes_encrypted = rule { check_ebs_volumes_encrypted() }
+imdsv2_enforced = rule { check_imdsv2() }
+nacl_restricted = rule { check_network_acls() }
+legacy_sg_restricted = rule { check_legacy_security_group_rules() }
+modern_sg_restricted = rule { check_modern_security_group_rules() }
+inline_sg_restricted = rule { check_inline_security_group_rules() }
+default_sg_empty = rule { check_default_security_groups() }
+flow_logs_enabled = rule { check_vpc_flow_logs() }
+
+# ------------------------------------------------------------
+# MAIN POLICY
+# ------------------------------------------------------------
+
+main = rule {
+	ec2_type_allowed and
+	ebs_default_encryption and
+	ebs_volumes_encrypted and
+	imdsv2_enforced and
+	nacl_restricted and
+	legacy_sg_restricted and
+	modern_sg_restricted and
+	inline_sg_restricted and
+	default_sg_empty and
+	flow_logs_enabled
+}
