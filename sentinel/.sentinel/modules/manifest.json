@@ -1,0 +1,28 @@
+{
+	"records": [
+		{
+			"key": "report",
+			"source": "../modules/report/report.sentinel",
+			"sourceSum": "",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/modules/report/report.sentinel"
+		},
+		{
+			"key": "tfresources",
+			"source": "../modules/tfresources/tfresources.sentinel",
+			"sourceSum": "",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/modules/tfresources/tfresources.sentinel"
+		},
+		{
+			"key": "tfconfig-functions",
+			"source": "../modules/tfconfig-functions/tfconfig-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/modules/tfconfig-functions/tfconfig-functions.sentinel"
+		},
+		{
+			"key": "tfplan-functions",
+			"source": "../modules/tfplan-functions/tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/modules/tfplan-functions/tfplan-functions.sentinel"
+		}
+	]
+}

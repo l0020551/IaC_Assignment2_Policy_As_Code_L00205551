@@ -1,0 +1,11 @@
+resource_changes = {
+    "aws_instance.approved_node": {
+        "type": "aws_instance",
+        "change": {
+            "actions": ["create"],
+            "after": {
+                "instance_type": "t3.micro",
+            },
+        },
+    },
+}

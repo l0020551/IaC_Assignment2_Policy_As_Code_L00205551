@@ -89,19 +89,23 @@ On reviewing the content generated, I prompted the same AI if this was a compreh
 
 ## Infrastucture Security
 
-### Instance type parameters
-For this task the folloing tutorials and repos were analysed: 
-* Turorial: [https://developer.hashicorp.com/terraform/tutorials/policy/sentinel-policy](https://developer.hashicorp.com/terraform/tutorials/policy/sentinel-policy)
-    * Repo:[https://github.com/hashicorp-education/learn-sentinel-write-policy](https://github.com/hashicorp-education/learn-sentinel-write-policy) 
-
-* Tutorial: [https://developer.hashicorp.com/terraform/tutorials/policy/sentinel-import](https://developer.hashicorp.com/terraform/tutorials/policy/sentinel-import)
-  * Repo: https://developer.hashicorp.com/terraform/tutorials/policy/sentinel-import
-* Tutorial: [https://developer.hashicorp.com/terraform/tutorials/policy/sentinel-testing](=https://developer.hashicorp.com/terraform/tutorials/policy/sentinel-testing)
+### Resources used
+* restricting EC2 types, using [this tutorial](https://developer.hashicorp.com/terraform/tutorials/policy/sentinel-policy)
+* Found EBS encryption in CIS repo referenced [here](https://github.com/hashicorp/policy-library-CIS-Policy-Set-for-AWS-Terraform/blob/main/policies/ec2/ec2-ebs-encryption-enabled.sentinel) 
+* Mandatory IMDSv2 [sample block used](https://github.com/hashicorp/policy-library-CIS-Policy-Set-for-AWS-Terraform/blob/main/policies/ec2/ec2-metadata-imdsv2-required.sentinel)
+* for Appropriate network security configurations refer to remainder of CIS repo. 
+* SSH restrictions [sampleblock used](https://github.com/hashicorp/policy-library-CIS-Policy-Set-for-AWS-Terraform/blob/main/policies/ec2/ec2-security-group-ingress-traffic-restriction-protocol.sentinel)
 
 
+### Implementation
+
+* I noticed most of the content of this step is present in this repo, I simply copied over the code blocks and added it to the Policy_As_Code.hcl block: https://github.com/hashicorp/policy-library-CIS-Policy-Set-for-AWS-Terraform/tree/main/policies/ec2
+* If I were to develop further on the repo, I would add the CIS as a submodule where the most upto date CIS block would be deployed. 
+
+* Finalling, I added the EC2 restrictions outlined in [this tutorial](https://developer.hashicorp.com/terraform/tutorials/policy/sentinel-policy).
+
+* NB. ADD EC2 restrictions
 
 
-
-
-
-# Add tagging
+#Testing
+# Add tagging 

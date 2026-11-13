@@ -1,22 +1,16 @@
 {
 	"records": [
 		{
-			"key": "data_protection",
-			"source": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/data_protection.sentinel",
-			"sourceSum": "3c38593044d1a8a84418704fe69e9e0c1103b503650e6e323a29e88df56c0294",
-			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/.sentinel/policies/data_protection-3c38593044d1a8a84418704fe69e9e0c1103b503650e6e323a29e88df56c0294.sentinel"
+			"key": "region_of_operation",
+			"source": "./region_of_operation.sentinel",
+			"sourceSum": "",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/region_of_operation.sentinel"
 		},
 		{
-			"key": "GDPR_data_protection",
-			"source": "./GDPR_data_protection.sentinel",
+			"key": "ec2-ebs-encryption-enabled",
+			"source": "./ec2-ebs-encryption-enabled.sentinel",
 			"sourceSum": "",
-			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/GDPR_data_protection.sentinel"
-		},
-		{
-			"key": "SupplyChainSecurity",
-			"source": "./SupplyChainSecurity.sentinel",
-			"sourceSum": "",
-			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/SupplyChainSecurity.sentinel"
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/ec2-ebs-encryption-enabled.sentinel"
 		},
 		{
 			"key": "supply_chain_security",
@@ -25,10 +19,70 @@
 			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/SupplyChainSecurity.sentinel"
 		},
 		{
-			"key": "region_of_operation",
-			"source": "./region_of_operation.sentinel",
+			"key": "GDPR_data_protection",
+			"source": "./GDPR_data_protection.sentinel",
 			"sourceSum": "",
-			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/region_of_operation.sentinel"
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/GDPR_data_protection.sentinel"
+		},
+		{
+			"key": "data_protection",
+			"source": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/data_protection.sentinel",
+			"sourceSum": "3c38593044d1a8a84418704fe69e9e0c1103b503650e6e323a29e88df56c0294",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/.sentinel/policies/data_protection-3c38593044d1a8a84418704fe69e9e0c1103b503650e6e323a29e88df56c0294.sentinel"
+		},
+		{
+			"key": "ec2-security-group-ingress-traffic-restriction-protocol",
+			"source": "./ec2-security-group-ingress-traffic-restriction-protocol.sentinel",
+			"sourceSum": "",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/ec2-security-group-ingress-traffic-restriction-protocol.sentinel"
+		},
+		{
+			"key": "ec2-network-acl",
+			"source": "./ec2-network-acl.sentinel",
+			"sourceSum": "",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/ec2-network-acl.sentinel"
+		},
+		{
+			"key": "SupplyChainSecurity",
+			"source": "./SupplyChainSecurity.sentinel",
+			"sourceSum": "",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/SupplyChainSecurity.sentinel"
+		},
+		{
+			"key": "ElasticCloudComputeinstance_types",
+			"source": "./ElasticCloudComputeSecurity.sentinel",
+			"sourceSum": "",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/ElasticCloudComputeSecurity.sentinel"
+		},
+		{
+			"key": "ec2-vpc-default-security-group-no-traffic",
+			"source": "./ec2-vpc-default-security-group-no-traffic.sentinel",
+			"sourceSum": "",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/ec2-vpc-default-security-group-no-traffic.sentinel"
+		},
+		{
+			"key": "ec2-type_restrictions",
+			"source": "./ec2-type_restrictions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/ec2-type_restrictions.sentinel"
+		},
+		{
+			"key": "ec2-security-group-ingress-traffic-restriction-port",
+			"source": "./ec2-security-group-ingress-traffic-restriction-port.sentinel",
+			"sourceSum": "",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/ec2-security-group-ingress-traffic-restriction-port.sentinel"
+		},
+		{
+			"key": "ec2-metadata-imdsv2-required",
+			"source": "./ec2-metadata-imdsv2-required.sentinel",
+			"sourceSum": "",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/ec2-metadata-imdsv2-required.sentinel"
+		},
+		{
+			"key": "ec2-vpc-flow-logging-enabled",
+			"source": "./ec2-vpc-flow-logging-enabled.sentinel",
+			"sourceSum": "",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/IaC_Assignment2_Policy_As_Code_L00205551/sentinel/ec2-vpc-flow-logging-enabled.sentinel"
 		}
 	]
 }

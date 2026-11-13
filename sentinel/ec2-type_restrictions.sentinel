@@ -1,0 +1,71 @@
+# ElasticCloudComputeSecurity.sentinel
+# Restricts aws_instance types to the approved list.
+
+import "tfplan/v2" as tfplan
+
+allowed_ec2_types = [
+    "t2.micro",
+    "t2.small",
+    "t2.medium",
+    "t3.micro",
+    "t3.small",
+    "t3.medium",
+]
+
+get_ec2_instances = func() {
+    changes = tfplan.resource_changes else {}
+    filtered = filter changes as _, rc {
+        rc.type is "aws_instance" and
+        (rc.change.actions contains "create" or rc.change.actions contains "update" or rc.change.actions contains "no-op")
+    }
+    if length(filtered) > 0 {
+        return filtered
+    }
+
+    result = {}
+    direct_planned = tfplan.planned_values.resources else {}
+    for direct_planned as addr, res {
+        if (res.type else "") is "aws_instance" {
+            result[addr] = {
+                "type": res.type,
+                "change": {
+                    "actions": ["create"],
+                    "after": res.values else {},
+                },
+            }
+        }
+    }
+
+    root_resources = tfplan.planned_values.root_module.resources else []
+    for root_resources as res {
+        if (res.type else "") is "aws_instance" {
+            addr = res.address else "aws_instance"
+            result[addr] = {
+                "type": res.type,
+                "change": {
+                    "actions": ["create"],
+                    "after": res.values else {},
+                },
+            }
+        }
+    }
+
+    return result
+}
+
+check_ec2_instance_types = func() {
+    validated = true
+    for get_ec2_instances() as address, rc {
+        instance_type = rc.change.after.instance_type else ""
+        if instance_type not in allowed_ec2_types {
+            print("[EC2 TYPE ERROR]", address, "uses unapproved instance type:", instance_type,
+                  "- Allowed types:", allowed_ec2_types)
+            validated = false
+        }
+    }
+    return validated
+}
+
+main = rule {
+    check_ec2_instance_types()
+}
