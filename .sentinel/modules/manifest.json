@@ -1,0 +1,28 @@
+{
+	"records": [
+		{
+			"key": "tfresources",
+			"source": "../modules/tfresources/tfresources.sentinel",
+			"sourceSum": "",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/modules/tfresources/tfresources.sentinel"
+		},
+		{
+			"key": "tfconfig-functions",
+			"source": "../modules/tfconfig-functions/tfconfig-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/modules/tfconfig-functions/tfconfig-functions.sentinel"
+		},
+		{
+			"key": "tfplan-functions",
+			"source": "../modules/tfplan-functions/tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/modules/tfplan-functions/tfplan-functions.sentinel"
+		},
+		{
+			"key": "report",
+			"source": "../modules/report/report.sentinel",
+			"sourceSum": "",
+			"dest": "/home/tpt480/Documents/IaCModule/Assignment2/modules/report/report.sentinel"
+		}
+	]
+}
